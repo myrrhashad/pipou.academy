@@ -1,0 +1,2 @@
+default: styles/custom.scss
+mastodon: styles/application.scss
