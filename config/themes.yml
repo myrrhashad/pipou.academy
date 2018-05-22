@@ -1,2 +1,3 @@
 default: styles/custom.scss
 mastodon: styles/application.scss
+contrast: styles/contrast.scss
