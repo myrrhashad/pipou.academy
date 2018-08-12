@@ -125,6 +125,7 @@ export default class CommunityTimeline extends React.PureComponent {
           timelineId={`community${onlyMedia ? ':media' : ''}`}
           onLoadMore={this.handleLoadMore}
           emptyMessage={<FormattedMessage id='empty_column.community' defaultMessage='The local timeline is empty. Write something publicly to get the ball rolling!' />}
+          shouldUpdateScroll={shouldUpdateScroll}
         />
       </Column>
     );
