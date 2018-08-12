@@ -39,6 +39,7 @@ export default class CommunityTimeline extends React.PureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    shouldUpdateScroll: PropTypes.func,
     columnId: PropTypes.string,
     intl: PropTypes.object.isRequired,
     hasUnread: PropTypes.bool,
@@ -100,7 +101,7 @@ export default class CommunityTimeline extends React.PureComponent {
   }
 
   render () {
-    const { intl, hasUnread, columnId, multiColumn, onlyMedia } = this.props;
+    const { intl, shouldUpdateScroll, hasUnread, columnId, multiColumn, onlyMedia } = this.props;
     const pinned = !!columnId;
 
     return (
