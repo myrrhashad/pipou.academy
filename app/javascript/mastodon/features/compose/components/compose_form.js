@@ -30,8 +30,12 @@ const messages = defineMessages({
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}!' },
 });
 
-@injectIntl
-export default class ComposeForm extends ImmutablePureComponent {
+export default @injectIntl
+class ComposeForm extends ImmutablePureComponent {
+
+  static contextTypes = {
+    router: PropTypes.object,
+  };
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
@@ -45,6 +49,7 @@ export default class ComposeForm extends ImmutablePureComponent {
     caretPosition: PropTypes.number,
     preselectDate: PropTypes.instanceOf(Date),
     is_submitting: PropTypes.bool,
+    is_changing_upload: PropTypes.bool,
     is_uploading: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -80,14 +85,14 @@ export default class ComposeForm extends ImmutablePureComponent {
     }
 
     // Submit disabled:
-    const { is_submitting, is_uploading, anyMedia } = this.props;
+    const { is_submitting, is_changing_upload, is_uploading, anyMedia } = this.props;
     const fulltext = [this.props.spoiler_text, countableText(this.props.text)].join('');
 
     if (is_submitting || is_uploading || length(fulltext) > 750 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
       return;
     }
 
-    this.props.onSubmit();
+    this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
 
   onSuggestionsClearRequested = () => {
@@ -159,7 +164,7 @@ export default class ComposeForm extends ImmutablePureComponent {
     const { intl, onPaste, showSearch, anyMedia } = this.props;
     const disabled = this.props.is_submitting;
     const text     = [this.props.spoiler_text, countableText(this.props.text)].join('');
-    const disabledButton = disabled || this.props.is_uploading || length(text) > 750 || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
+    const disabledButton = disabled || this.props.is_uploading || this.props.is_changing_upload || length(text) > 750 || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
     let publishText = '';
 
     if (this.props.privacy === 'private' || this.props.privacy === 'direct') {
@@ -214,10 +219,10 @@ export default class ComposeForm extends ImmutablePureComponent {
           <div className='character-counter__wrapper'><CharacterCounter max={750} text={text} /></div>
          </div>
 
-          <div className='compose-form__publish'>
-            <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabled || this.props.is_uploading || length(text) > 750 || (text.length !== 0 && text.trim().length === 0)} block /></div>
-          </div>
+        <div className='compose-form__publish'>
+          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>
+      </div>
     );
   }
 
