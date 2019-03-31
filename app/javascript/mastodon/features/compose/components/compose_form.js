@@ -5,12 +5,14 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import ReplyIndicatorContainer from '../containers/reply_indicator_container';
 import AutosuggestTextarea from '../../../components/autosuggest_textarea';
+import PollButtonContainer from '../containers/poll_button_container';
 import UploadButtonContainer from '../containers/upload_button_container';
 import { defineMessages, injectIntl } from 'react-intl';
 import SpoilerButtonContainer from '../containers/spoiler_button_container';
 import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 import SensitiveButtonContainer from '../containers/sensitive_button_container';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
+import PollFormContainer from '../containers/poll_form_container';
 import UploadFormContainer from '../containers/upload_form_container';
 import WarningContainer from '../containers/warning_container';
 import { isMobile } from '../../../is_mobile';
@@ -88,7 +90,7 @@ class ComposeForm extends ImmutablePureComponent {
     const { is_submitting, is_changing_upload, is_uploading, anyMedia } = this.props;
     const fulltext = [this.props.spoiler_text, countableText(this.props.text)].join('');
 
-    if (is_submitting || is_uploading || length(fulltext) > 750 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
+    if (is_submitting || is_uploading || is_changing_upload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
       return;
     }
 
@@ -207,11 +209,13 @@ class ComposeForm extends ImmutablePureComponent {
 
         <div className='compose-form__modifiers'>
           <UploadFormContainer />
+          <PollFormContainer />
         </div>
 
         <div className='compose-form__buttons-wrapper'>
           <div className='compose-form__buttons'>
             <UploadButtonContainer />
+            <PollButtonContainer />
             <PrivacyDropdownContainer />
             <SensitiveButtonContainer />
             <SpoilerButtonContainer />
