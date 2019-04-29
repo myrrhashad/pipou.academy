@@ -10,6 +10,7 @@ class AccountsController < ApplicationController
   def show
     respond_to do |format|
       format.html do
+        use_pack 'public'
         mark_cacheable! unless user_signed_in?
 
         @body_classes      = 'with-modals'
@@ -35,7 +36,7 @@ class AccountsController < ApplicationController
         mark_cacheable!
 
         @entries = @account.stream_entries.where(hidden: false).with_includes.paginate_by_max_id(PAGE_SIZE, params[:max_id], params[:since_id])
-        render xml: OStatus::AtomSerializer.render(OStatus::AtomSerializer.new.feed(@account, @entries.reject { |entry| entry.status.nil? }))
+        render xml: OStatus::AtomSerializer.render(OStatus::AtomSerializer.new.feed(@account, @entries.reject { |entry| entry.status.nil? || entry.status.local_only? }))
       end
 
       format.rss do
@@ -70,7 +71,7 @@ class AccountsController < ApplicationController
   end
 
   def default_statuses
-    @account.statuses.where(visibility: [:public, :unlisted])
+    @account.statuses.not_local_only.where(visibility: [:public, :unlisted])
   end
 
   def only_media_scope

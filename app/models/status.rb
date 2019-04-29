@@ -21,6 +21,8 @@
 #  account_id             :bigint(8)        not null
 #  application_id         :bigint(8)
 #  in_reply_to_account_id :bigint(8)
+#  local_only             :boolean
+#  full_status_text       :text             default(""), not null
 #  poll_id                :bigint(8)
 #
 
@@ -51,6 +53,7 @@ class Status < ApplicationRecord
   belongs_to :reblog, foreign_key: 'reblog_of_id', class_name: 'Status', inverse_of: :reblogs, optional: true
 
   has_many :favourites, inverse_of: :status, dependent: :destroy
+  has_many :bookmarks, inverse_of: :status, dependent: :destroy
   has_many :reblogs, foreign_key: 'reblog_of_id', class_name: 'Status', inverse_of: :reblog, dependent: :destroy
   has_many :replies, foreign_key: 'in_reply_to_id', class_name: 'Status', inverse_of: :thread
   has_many :mentions, dependent: :destroy, inverse_of: :status
@@ -99,6 +102,8 @@ class Status < ApplicationRecord
             .where("t#{id}.tag_id IS NULL")
     end
   }
+
+  scope :not_local_only, -> { where(local_only: [false, nil]) }
 
   cache_associated :application,
                    :media_attachments,
@@ -257,6 +262,8 @@ class Status < ApplicationRecord
 
   around_create Mastodon::Snowflake::Callbacks
 
+  before_create :set_locality
+
   before_validation :prepare_contents, if: :local?
   before_validation :set_reblog
   before_validation :set_visibility
@@ -339,6 +346,10 @@ class Status < ApplicationRecord
       Favourite.select('status_id').where(status_id: status_ids).where(account_id: account_id).each_with_object({}) { |f, h| h[f.status_id] = true }
     end
 
+    def bookmarks_map(status_ids, account_id)
+      Bookmark.select('status_id').where(status_id: status_ids).where(account_id: account_id).map { |f| [f.status_id, true] }.to_h
+    end
+
     def reblogs_map(status_ids, account_id)
       select('reblog_of_id').where(reblog_of_id: status_ids).where(account_id: account_id).reorder(nil).each_with_object({}) { |s, h| h[s.reblog_of_id] = true }
     end
@@ -375,7 +386,7 @@ class Status < ApplicationRecord
       visibility = [:public, :unlisted]
 
       if account.nil?
-        where(visibility: visibility)
+        where(visibility: visibility).not_local_only
       elsif target_account.blocking?(account) # get rid of blocked peeps
         none
       elsif account.id == target_account.id # author can see own stuff
@@ -418,7 +429,7 @@ class Status < ApplicationRecord
     end
 
     def filter_timeline_default(query)
-      query.excluding_silenced_accounts
+      query.not_local_only.excluding_silenced_accounts
     end
 
     def account_silencing_filter(account)
@@ -429,6 +440,15 @@ class Status < ApplicationRecord
         excluding_silenced_accounts
       end
     end
+  end
+
+  def marked_local_only?
+    # match both with and without U+FE0F (the emoji variation selector)
+    /#{local_only_emoji}\ufe0f?\z/.match?(content)
+  end
+
+  def local_only_emoji
+    '👁'
   end
 
   private
@@ -461,6 +481,12 @@ class Status < ApplicationRecord
     self.visibility = reblog.visibility if reblog? && visibility.nil?
     self.visibility = (account.locked? ? :private : :public) if visibility.nil?
     self.sensitive  = false if sensitive.nil?
+  end
+
+  def set_locality
+    if account.domain.nil? && !attribute_changed?(:local_only)
+      self.local_only = marked_local_only?
+    end
   end
 
   def set_conversation

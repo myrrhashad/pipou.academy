@@ -8,6 +8,7 @@ class DirectoriesController < ApplicationController
   before_action :set_tag, only: :show
   before_action :set_tags
   before_action :set_accounts
+  before_action :set_pack
 
   def index
     render :index
@@ -18,6 +19,10 @@ class DirectoriesController < ApplicationController
   end
 
   private
+
+  def set_pack
+    use_pack 'share'
+  end
 
   def check_enabled
     return not_found unless Setting.profile_directory

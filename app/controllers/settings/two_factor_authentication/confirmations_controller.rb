@@ -3,9 +3,6 @@
 module Settings
   module TwoFactorAuthentication
     class ConfirmationsController < BaseController
-      layout 'admin'
-
-      before_action :authenticate_user!
       before_action :ensure_otp_secret
 
       def new

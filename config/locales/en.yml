@@ -252,6 +252,7 @@ en:
       feature_timeline_preview: Timeline preview
       features: Features
       hidden_service: Federation with hidden services
+      keybase: Keybase integration
       open_reports: open reports
       recent_users: Recent users
       search: Full-text search
@@ -397,9 +398,15 @@ en:
       custom_css:
         desc_html: Modify the look with CSS loaded on every page
         title: Custom CSS
+      enable_keybase:
+        desc_html: Allow your users to prove their identity via keybase
+        title: Enable keybase integration
       hero:
         desc_html: Displayed on the frontpage. At least 600x100px recommended. When not set, falls back to server thumbnail
         title: Hero image
+      hide_followers_count:
+        desc_html: Do not show followers count on user profiles
+        title: Hide followers count
       mascot:
         desc_html: Displayed on multiple pages. At least 293×205px recommended. When not set, falls back to default mascot
         title: Mascot image
@@ -640,6 +647,7 @@ en:
     copy: Copy
     order_by: Order by
     save_changes: Save changes
+    use_this: Use this
     validation_errors:
       one: Something isn't quite right yet! Please review the error below
       other: Something isn't quite right yet! Please review %{count} errors below
@@ -870,6 +878,7 @@ en:
     edit_profile: Edit profile
     export: Data export
     featured_tags: Featured hashtags
+    flavours: Flavours
     identity_proofs: Identity proofs
     import: Import
     import_and_export: Import and export

@@ -21,6 +21,7 @@ module.exports = {
     {
       loader: 'sass-loader',
       options: {
+        includePaths: ['app/javascript'],
         fiber: require('fibers'),
         implementation: require('sass'),
         sourceMap: true,

@@ -24,6 +24,7 @@ class RemoveStatusService < BaseService
         remove_from_hashtags
         remove_from_public
         remove_from_media if status.media_attachments.any?
+        remove_from_direct if status.direct_visibility?
 
         @status.destroy!
       else
@@ -161,6 +162,13 @@ class RemoveStatusService < BaseService
 
     redis.publish('timeline:public:media', @payload)
     redis.publish('timeline:public:local:media', @payload) if @status.local?
+  end
+
+  def remove_from_direct
+    @mentions.each do |mention|
+      Redis.current.publish("timeline:direct:#{mention.account.id}", @payload) if mention.account.local?
+    end
+    Redis.current.publish("timeline:direct:#{@account.id}", @payload) if @account.local?
   end
 
   def lock_options

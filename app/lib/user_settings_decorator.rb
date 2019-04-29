@@ -22,6 +22,7 @@ class UserSettingsDecorator
     user.settings['default_language']    = default_language_preference if change?('setting_default_language')
     user.settings['unfollow_modal']      = unfollow_modal_preference if change?('setting_unfollow_modal')
     user.settings['boost_modal']         = boost_modal_preference if change?('setting_boost_modal')
+    user.settings['favourite_modal']     = favourite_modal_preference if change?('setting_favourite_modal')
     user.settings['delete_modal']        = delete_modal_preference if change?('setting_delete_modal')
     user.settings['auto_play_gif']       = auto_play_gif_preference if change?('setting_auto_play_gif')
     user.settings['display_media']       = display_media_preference if change?('setting_display_media')
@@ -29,7 +30,9 @@ class UserSettingsDecorator
     user.settings['reduce_motion']       = reduce_motion_preference if change?('setting_reduce_motion')
     user.settings['system_font_ui']      = system_font_ui_preference if change?('setting_system_font_ui')
     user.settings['noindex']             = noindex_preference if change?('setting_noindex')
-    user.settings['theme']               = theme_preference if change?('setting_theme')
+    user.settings['hide_followers_count']= hide_followers_count_preference if change?('setting_hide_followers_count')
+    user.settings['flavour']             = flavour_preference if change?('setting_flavour')
+    user.settings['skin']                = skin_preference if change?('setting_skin')
     user.settings['hide_network']        = hide_network_preference if change?('setting_hide_network')
     user.settings['aggregate_reblogs']   = aggregate_reblogs_preference if change?('setting_aggregate_reblogs')
     user.settings['show_application']    = show_application_preference if change?('setting_show_application')
@@ -57,6 +60,10 @@ class UserSettingsDecorator
 
   def boost_modal_preference
     boolean_cast_setting 'setting_boost_modal'
+  end
+
+  def favourite_modal_preference
+    boolean_cast_setting 'setting_favourite_modal'
   end
 
   def delete_modal_preference
@@ -87,16 +94,24 @@ class UserSettingsDecorator
     boolean_cast_setting 'setting_noindex'
   end
 
+  def hide_followers_count_preference
+    boolean_cast_setting 'setting_hide_followers_count'
+  end
+
+  def flavour_preference
+    settings['setting_flavour']
+  end
+
+  def skin_preference
+    settings['setting_skin']
+  end
+
   def hide_network_preference
     boolean_cast_setting 'setting_hide_network'
   end
 
   def show_application_preference
     boolean_cast_setting 'setting_show_application'
-  end
-
-  def theme_preference
-    settings['setting_theme']
   end
 
   def default_language_preference

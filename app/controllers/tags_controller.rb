@@ -13,6 +13,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html do
+        use_pack 'about'
         @initial_state_json = ActiveModelSerializers::SerializableResource.new(
           InitialStatePresenter.new(settings: {}, token: current_session&.token),
           serializer: InitialStateSerializer

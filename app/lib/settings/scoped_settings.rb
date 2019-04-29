@@ -3,7 +3,8 @@
 module Settings
   class ScopedSettings
     DEFAULTING_TO_UNSCOPED = %w(
-      theme
+      flavour
+      skin
     ).freeze
 
     def initialize(object)

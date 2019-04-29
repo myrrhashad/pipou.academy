@@ -1484,7 +1484,7 @@ a.account__display-name {
   .image-loader__preview-canvas {
     max-width: $media-modal-media-max-width;
     max-height: $media-modal-media-max-height;
-    background: url('../images/void.png') repeat;
+    background: url('~images/void.png') repeat;
     object-fit: contain;
   }
 
@@ -2612,7 +2612,7 @@ a.status-card.compact:hover {
   }
 
   &__figure {
-    background: url('../images/elephant_ui_working.svg') no-repeat center 0;
+    background: url('~images/elephant_ui_working.svg') no-repeat center 0;
     width: 100%;
     height: 160px;
     background-size: contain;
@@ -2626,7 +2626,7 @@ a.status-card.compact:hover {
     padding-top: 20px + 48px;
 
     .regeneration-indicator__figure {
-      background-image: url('../images/elephant_ui_disappointed.svg');
+      background-image: url('~images/elephant_ui_disappointed.svg');
     }
   }
 
@@ -3961,14 +3961,6 @@ a.status-card.compact:hover {
   font-size: 14px;
 }
 
-.confirmation-modal {
-  max-width: 85vw;
-
-  @media screen and (min-width: 480px) {
-    max-width: 380px;
-  }
-}
-
 .mute-modal {
   line-height: 24px;
 }
@@ -4093,6 +4085,11 @@ a.status-card.compact:hover {
   ul {
     overflow-y: auto;
     flex-shrink: 0;
+    max-height: 80vh;
+
+    &.with-status {
+      max-height: calc(80vh - 75px);
+    }
 
     li:empty {
       margin: 0;
@@ -4146,6 +4143,10 @@ a.status-card.compact:hover {
     &:active {
       color: darken($lighter-text-color, 4%);
     }
+  }
+
+  .confirmation-modal__secondary-button {
+    flex-shrink: 1;
   }
 }
 
@@ -5199,7 +5200,7 @@ noscript {
     width: 100px;
     height: 100px;
     transform: translate(-50%, -50%);
-    background: url('../images/reticle.png') no-repeat 0 0;
+    background: url('~images/reticle.png') no-repeat 0 0;
     border-radius: 50%;
     box-shadow: 0 0 0 9999em rgba($base-shadow-color, 0.35);
   }

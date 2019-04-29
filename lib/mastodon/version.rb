@@ -28,16 +28,20 @@ module Mastodon
       [major, minor, patch, pre].compact
     end
 
+    def suffix
+      '+glitch'
+    end
+
     def to_s
-      [to_a.join('.'), flags].join
+      [to_a.join('.'), flags, suffix].join
     end
 
     def repository
-      'tootsuite/mastodon'
+      ENV.fetch('GITHUB_REPOSITORY') { 'glitch-soc/mastodon' }
     end
 
     def source_base_url
-      "https://github.com/#{repository}"
+      ENV.fetch('SOURCE_BASE_URL') { "https://github.com/#{repository}" }
     end
 
     # specify git tag or commit hash here

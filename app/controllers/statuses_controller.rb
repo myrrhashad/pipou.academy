@@ -27,6 +27,7 @@ class StatusesController < ApplicationController
   def show
     respond_to do |format|
       format.html do
+        use_pack 'public'
         mark_cacheable! unless user_signed_in?
 
         @body_classes = 'with-modals'
@@ -56,6 +57,7 @@ class StatusesController < ApplicationController
   end
 
   def embed
+    use_pack 'embed'
     raise ActiveRecord::RecordNotFound if @status.hidden?
 
     skip_session!
