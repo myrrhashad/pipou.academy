@@ -67,3 +67,8 @@
     text-decoration: none;
   }
 }
+
+// Columns width
+div.column {
+  flex-grow: 1;
+}
