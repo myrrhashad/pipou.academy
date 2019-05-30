@@ -31,7 +31,7 @@ module.exports = merge(sharedConfig, {
   stats: 'normal',
   bail: true,
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [
       new UglifyJsPlugin({
         cache: true,
@@ -57,11 +57,11 @@ module.exports = merge(sharedConfig, {
       cache: true,
       test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/,
     }),
-    new BundleAnalyzerPlugin({ // generates report.html
+    /* new BundleAnalyzerPlugin({ // generates report.html
       analyzerMode: 'static',
       openAnalyzer: false,
       logLevel: 'silent', // do not bother Webpacker, who runs with --json and parses stdout
-    }),
+    }), */
     new OfflinePlugin({
       publicPath: output.publicPath, // sw.js must be served from the root to avoid scope issues
       caches: {
