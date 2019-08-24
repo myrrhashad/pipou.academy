@@ -157,14 +157,11 @@
     "sass-loader": "^7.0.3",
     "stringz": "^2.0.0",
     "substring-trie": "^1.0.2",
-    "terser-webpack-plugin": "^1.4.1",
     "throng": "^4.0.0",
     "tiny-queue": "^0.2.1",
     "uuid": "^3.1.0",
     "webpack": "^4.35.3",
-    "webpack-assets-manifest": "^3.1.1",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.6",
     "webpack-merge": "^4.2.1",
     "websocket.js": "^0.1.12"
   },
@@ -183,6 +180,9 @@
     "react-intl-translations-manager": "^5.0.3",
     "react-test-renderer": "^16.8.6",
     "sass-lint": "^1.13.1",
+    "terser-webpack-plugin": "^1.4.1",
+    "webpack-assets-manifest": "^3.1.1",
+    "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0",
     "yargs": "^13.3.0"
   }
