@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import Icon from 'flavours/glitch/components/icon';
 import { autoPlayGif, displayMedia } from 'flavours/glitch/util/initial_state';
 import classNames from 'classnames';
 import { decode } from 'blurhash';
@@ -97,7 +98,7 @@ export default class MediaItem extends ImmutablePureComponent {
     } else if (attachment.get('type') === 'audio') {
       thumbnail = (
         <span className='account-gallery__item__icons'>
-          <i className='fa fa-music' />
+          <Icon id='music' />
         </span>
       );
     } else if (attachment.get('type') === 'image') {
@@ -117,6 +118,7 @@ export default class MediaItem extends ImmutablePureComponent {
       );
     } else if (['gifv', 'video'].indexOf(attachment.get('type')) !== -1) {
       const autoPlay = !isIOS() && autoPlayGif;
+      const label    = attachment.get('type') === 'video' ? <Icon id='play' /> : 'GIF';
 
       thumbnail = (
         <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
@@ -132,14 +134,15 @@ export default class MediaItem extends ImmutablePureComponent {
             loop
             muted
           />
-          <span className='media-gallery__gifv__label'>GIF</span>
+
+          <span className='media-gallery__gifv__label'>{label}</span>
         </div>
       );
     }
 
     const icon = (
       <span className='account-gallery__item__icons'>
-        <i className='fa fa-eye-slash' />
+        <Icon id='eye-slash' />
       </span>
     );
 
