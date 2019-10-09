@@ -10,6 +10,7 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import IconButton from 'mastodon/components/icon_button';
 import Button from 'mastodon/components/button';
 import Video from 'mastodon/features/video';
+import Audio from 'mastodon/features/audio';
 import Textarea from 'react-textarea-autosize';
 import UploadProgress from 'mastodon/features/compose/components/upload_progress';
 import CharacterCounter from 'mastodon/features/compose/components/character_counter';
@@ -172,7 +173,17 @@ class FocalPointModal extends ImmutablePureComponent {
         langPath: `${assetHost}/ocr/lang-data`,
       });
 
-      worker.recognize(media.get('url'))
+      let media_url = media.get('file');
+
+      if (window.URL && URL.createObjectURL) {
+        try {
+          media_url = URL.createObjectURL(media.get('file'));
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      worker.recognize(media_url)
         .progress(({ progress }) => this.setState({ progress }))
         .finally(() => worker.terminate())
         .then(({ text }) => this.setState({ description: removeExtraLineBreaks(text), dirty: true, detecting: false }))
@@ -222,10 +233,10 @@ class FocalPointModal extends ImmutablePureComponent {
 
             <div className='setting-text__toolbar'>
               <button disabled={detecting || media.get('type') !== 'image'} className='link-button' onClick={this.handleTextDetection}><FormattedMessage id='upload_modal.detect_text' defaultMessage='Detect text from picture' /></button>
-              <CharacterCounter max={420} text={detecting ? '' : description} />
+              <CharacterCounter max={1500} text={detecting ? '' : description} />
             </div>
 
-            <Button disabled={!dirty || detecting || length(description) > 420} text={intl.formatMessage(messages.apply)} onClick={this.handleSubmit} />
+            <Button disabled={!dirty || detecting || length(description) > 1500} text={intl.formatMessage(messages.apply)} onClick={this.handleSubmit} />
           </div>
 
           <div className='focal-point-modal__content'>
@@ -244,12 +255,23 @@ class FocalPointModal extends ImmutablePureComponent {
               </div>
             )}
 
-            {['audio', 'video'].includes(media.get('type')) && (
+            {media.get('type') === 'video' && (
               <Video
                 preview={media.get('preview_url')}
                 blurhash={media.get('blurhash')}
                 src={media.get('url')}
                 detailed
+                inline
+                editable
+              />
+            )}
+
+            {media.get('type') === 'audio' && (
+              <Audio
+                src={media.get('url')}
+                duration={media.getIn(['meta', 'original', 'duration'], 0)}
+                height={150}
+                preload
                 editable
               />
             )}

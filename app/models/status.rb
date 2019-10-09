@@ -25,20 +25,24 @@
 #  full_status_text       :text             default(""), not null
 #  poll_id                :bigint(8)
 #  content_type           :string
+#  deleted_at             :datetime
 #
 
 class Status < ApplicationRecord
   before_destroy :unlink_from_conversations
 
+  include Discard::Model
   include Paginable
   include Cacheable
   include StatusThreadingConcern
+
+  self.discard_column = :deleted_at
 
   # If `override_timestamps` is set at creation time, Snowflake ID creation
   # will be based on current time instead of `created_at`
   attr_accessor :override_timestamps
 
-  update_index('statuses#status', :proper) if Chewy.enabled?
+  update_index('statuses#status', :proper)
 
   enum visibility: [:public, :unlisted, :private, :direct, :limited], _suffix: :visibility
 
@@ -77,7 +81,7 @@ class Status < ApplicationRecord
 
   accepts_nested_attributes_for :poll
 
-  default_scope { recent }
+  default_scope { recent.kept }
 
   scope :recent, -> { reorder(id: :desc) }
   scope :remote, -> { where(local: false).where.not(uri: nil) }
@@ -132,12 +136,14 @@ class Status < ApplicationRecord
   REAL_TIME_WINDOW = 6.hours
 
   def searchable_by(preloaded = nil)
-    ids = [account_id]
+    ids = []
+
+    ids << account_id if local?
 
     if preloaded.nil?
-      ids += mentions.pluck(:account_id)
-      ids += favourites.pluck(:account_id)
-      ids += reblogs.pluck(:account_id)
+      ids += mentions.where(account: Account.local).pluck(:account_id)
+      ids += favourites.where(account: Account.local).pluck(:account_id)
+      ids += reblogs.where(account: Account.local).pluck(:account_id)
     else
       ids += preloaded.mentions[id] || []
       ids += preloaded.favourites[id] || []
@@ -215,6 +221,10 @@ class Status < ApplicationRecord
 
   def non_sensitive_with_media?
     !sensitive? && with_media?
+  end
+
+  def reported?
+    @reported ||= Report.where(target_account: account).unresolved.where('? = ANY(status_ids)', id).exists?
   end
 
   def emojis
@@ -352,7 +362,7 @@ class Status < ApplicationRecord
     end
 
     def reblogs_map(status_ids, account_id)
-      select('reblog_of_id').where(reblog_of_id: status_ids).where(account_id: account_id).reorder(nil).each_with_object({}) { |s, h| h[s.reblog_of_id] = true }
+      unscoped.select('reblog_of_id').where(reblog_of_id: status_ids).where(account_id: account_id).each_with_object({}) { |s, h| h[s.reblog_of_id] = true }
     end
 
     def mutes_map(conversation_ids, account_id)
