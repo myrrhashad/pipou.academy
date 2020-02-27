@@ -42,6 +42,14 @@ const isLinkMisleading = (link) => {
   const linkText = linkTextParts.join('');
   const targetURL = new URL(link.href);
 
+  if (targetURL.protocol === 'magnet:') {
+    return !linkText.startsWith('magnet:');
+  }
+
+  if (targetURL.protocol === 'xmpp:') {
+    return !(linkText === targetURL.href || 'xmpp:' + linkText === targetURL.href);
+  }
+
   // The following may not work with international domain names
   if (textMatchesTarget(linkText, targetURL.origin, targetURL.host) || textMatchesTarget(linkText.toLowerCase(), targetURL.origin, targetURL.host)) {
     return false;
@@ -120,9 +128,19 @@ export default class StatusContent extends React.PureComponent {
           if (tagLinks && isLinkMisleading(link)) {
             // Add a tag besides the link to display its origin
 
+            const url = new URL(link.href);
             const tag = document.createElement('span');
             tag.classList.add('link-origin-tag');
-            tag.textContent = `[${new URL(link.href).host}]`;
+            switch (url.protocol) {
+            case 'xmpp:':
+              tag.textContent = `[${url.href}]`;
+              break;
+            case 'magnet:':
+              tag.textContent = '(magnet)';
+              break;
+            default:
+              tag.textContent = `[${url.host}]`;
+            }
             link.insertAdjacentText('beforeend', ' ');
             link.insertAdjacentElement('beforeend', tag);
           }
@@ -133,7 +151,7 @@ export default class StatusContent extends React.PureComponent {
       }
 
       link.setAttribute('target', '_blank');
-      link.setAttribute('rel', 'noopener');
+      link.setAttribute('rel', 'noopener noreferrer');
     }
   }
 
@@ -315,7 +333,7 @@ export default class StatusContent extends React.PureComponent {
           <p
             style={{ marginBottom: hidden && status.get('mentions').isEmpty() ? '0px' : null }}
           >
-            <span dangerouslySetInnerHTML={spoilerContent} lang={status.get('language')} />
+            <span dangerouslySetInnerHTML={spoilerContent} />
             {' '}
             <button tabIndex='0' className='status__content__spoiler-link' onClick={this.handleSpoilerClick}>
               {toggleText}
@@ -332,7 +350,6 @@ export default class StatusContent extends React.PureComponent {
               tabIndex={!hidden ? 0 : null}
               dangerouslySetInnerHTML={content}
               className='status__content__text'
-              lang={status.get('language')}
             />
             {media}
           </div>
@@ -353,7 +370,6 @@ export default class StatusContent extends React.PureComponent {
             ref={this.setContentsRef}
             key={`contents-${tagLinks}-${rewriteMentions}`}
             dangerouslySetInnerHTML={content}
-            lang={status.get('language')}
             className='status__content__text'
             tabIndex='0'
           />
@@ -368,7 +384,7 @@ export default class StatusContent extends React.PureComponent {
           tabIndex='0'
           ref={this.setRef}
         >
-          <div ref={this.setContentsRef} key={`contents-${tagLinks}`} className='status__content__text' dangerouslySetInnerHTML={content} lang={status.get('language')} tabIndex='0' />
+          <div ref={this.setContentsRef} key={`contents-${tagLinks}`} className='status__content__text' dangerouslySetInnerHTML={content} tabIndex='0' />
           {media}
         </div>
       );

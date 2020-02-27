@@ -9,6 +9,7 @@ import LoadingIndicator from '../../components/loading_indicator';
 import Column from '../ui/components/column';
 import ProfileColumnHeader from 'flavours/glitch/features/account/components/profile_column_header';
 import HeaderContainer from './containers/header_container';
+import ColumnBackButton from 'flavours/glitch/components/column_back_button';
 import { List as ImmutableList } from 'immutable';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
@@ -82,6 +83,7 @@ class AccountTimeline extends ImmutablePureComponent {
     if (!isAccount) {
       return (
         <Column>
+          <ColumnBackButton multiColumn={multiColumn} />
           <MissingIndicator />
         </Column>
       );
@@ -110,6 +112,7 @@ class AccountTimeline extends ImmutablePureComponent {
           onLoadMore={this.handleLoadMore}
           emptyMessage={<FormattedMessage id='empty_column.account_timeline' defaultMessage='No toots here!' />}
           bindToDocument={!multiColumn}
+          timelineId='account'
         />
       </Column>
     );
