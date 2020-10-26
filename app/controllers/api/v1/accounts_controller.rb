@@ -23,14 +23,13 @@ class Api::V1::AccountsController < Api::BaseController
     if ENV['HCAPTCHA_ENABLED'] == 'true'
 	  not_found
 	else
-      token    = AppSignUpService.new.call(doorkeeper_token.application, account_params)
+      token    = AppSignUpService.new.call(doorkeeper_token.application, request.remote_ip, account_params)
       response = Doorkeeper::OAuth::TokenResponse.new(token)
 
       headers.merge!(response.headers)
 
       self.response_body = Oj.dump(response.body)
       self.status        = response.status
-	end
   end
 
   def follow
@@ -46,7 +45,7 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def mute
-    MuteService.new.call(current_user.account, @account, notifications: truthy_param?(:notifications))
+    MuteService.new.call(current_user.account, @account, notifications: truthy_param?(:notifications), duration: (params[:duration] || 0))
     render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
   end
 
