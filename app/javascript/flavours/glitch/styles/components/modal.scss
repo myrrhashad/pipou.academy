@@ -4,8 +4,6 @@
 
 .modal-root {
   position: relative;
-  transition: opacity 0.3s linear;
-  will-change: opacity;
   z-index: 9999;
 }
 
@@ -38,6 +36,21 @@
   pointer-events: auto;
   display: flex;
   z-index: 9999;
+}
+
+.media-modal__zoom-button {
+  position: absolute;
+  right: 64px;
+  top: 8px;
+  z-index: 100;
+  pointer-events: auto;
+  transition: opacity 0.3s linear;
+  will-change: opacity;
+}
+
+.media-modal__zoom-button--hidden {
+  pointer-events: none;
+  opacity: 0;
 }
 
 .onboarding-modal,
@@ -427,10 +440,8 @@
 
   .status__visibility-icon {
     color: $dark-text-color;
-    float: right;
     font-size: 14px;
-    margin-left: 4px;
-    margin-right: 4px;
+    padding: 0 4px;
   }
 
   .status__display-name {
