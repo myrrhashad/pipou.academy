@@ -30,6 +30,7 @@ class Api::V1::AccountsController < Api::BaseController
 
       self.response_body = Oj.dump(response.body)
       self.status        = response.status
+    end
   end
 
   def follow
