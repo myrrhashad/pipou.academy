@@ -20,9 +20,6 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def create
-    if ENV['HCAPTCHA_ENABLED'] == 'true'
-	  not_found
-	else
       token    = AppSignUpService.new.call(doorkeeper_token.application, request.remote_ip, account_params)
       response = Doorkeeper::OAuth::TokenResponse.new(token)
 
