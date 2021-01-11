@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/firstmoversadvantage/hcaptcha
+  revision: e65246bea49374566a9dbaead59fdb35b46b086d
+  ref: e65246bea49374566a9dbaead59fdb35b46b086d
+  specs:
+    hcaptcha (6.0.1)
+
+GIT
   remote: https://github.com/ianheggie/health_check
   revision: 0b799ead604f900ed50685e9b2d469cd2befba5b
   ref: 0b799ead604f900ed50685e9b2d469cd2befba5b
@@ -12,13 +19,6 @@ GIT
   ref: fd184883048b922b176939f851338d0a4971a532
   specs:
     nilsimsa (1.1.2)
-	
-GIT
-  remote: https://github.com/firstmoversadvantage/hcaptcha
-  revision: e65246bea49374566a9dbaead59fdb35b46b086d
-  ref: e65246bea49374566a9dbaead59fdb35b46b086d
-  specs:
-    hcaptcha (6.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -488,7 +488,7 @@ GEM
       link_header (~> 0.0, >= 0.0.8)
     rdf-normalize (0.4.0)
       rdf (~> 3.1)
-    redcarpet (3.5.0)
+    redcarpet (3.5.1)
     redis (4.2.5)
     redis-actionpack (5.2.0)
       actionpack (>= 5, < 7)
@@ -727,7 +727,7 @@ DEPENDENCIES
   fog-openstack (~> 0.3)
   fuubar (~> 2.5)
   hamlit-rails (~> 0.2)
-  hcaptcha
+  hcaptcha!
   health_check!
   hiredis (~> 0.6)
   htmlentities (~> 4.3)
@@ -783,7 +783,7 @@ DEPENDENCIES
   rails-i18n (~> 5.1)
   rails-settings-cached (~> 0.6)
   rdf-normalize (~> 0.4)
-  redcarpet (~> 3.4)
+  redcarpet (~> 3.5)
   redis (~> 4.2)
   redis-namespace (~> 1.8)
   redis-rails (~> 5.0)
