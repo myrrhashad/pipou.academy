@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/firstmoversadvantage/hcaptcha
+  revision: e65246bea49374566a9dbaead59fdb35b46b086d
+  ref: e65246bea49374566a9dbaead59fdb35b46b086d
+  specs:
+    hcaptcha (6.0.1)
+
+GIT
   remote: https://github.com/ianheggie/health_check
   revision: 0b799ead604f900ed50685e9b2d469cd2befba5b
   ref: 0b799ead604f900ed50685e9b2d469cd2befba5b
@@ -12,13 +19,6 @@ GIT
   ref: fd184883048b922b176939f851338d0a4971a532
   specs:
     nilsimsa (1.1.2)
-	
-GIT
-  remote: https://github.com/firstmoversadvantage/hcaptcha
-  revision: e65246bea49374566a9dbaead59fdb35b46b086d
-  ref: e65246bea49374566a9dbaead59fdb35b46b086d
-  specs:
-    hcaptcha (6.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -70,7 +70,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
@@ -353,7 +353,9 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.0512)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
@@ -689,7 +691,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10)
   active_record_query_trace (~> 1.8)
-  addressable (~> 2.7)
+  addressable (~> 2.8)
   annotate (~> 3.1)
   aws-sdk-s3 (~> 1.85)
   better_errors (~> 2.9)
@@ -727,7 +729,7 @@ DEPENDENCIES
   fog-openstack (~> 0.3)
   fuubar (~> 2.5)
   hamlit-rails (~> 0.2)
-  hcaptcha
+  hcaptcha!
   health_check!
   hiredis (~> 0.6)
   htmlentities (~> 4.3)
