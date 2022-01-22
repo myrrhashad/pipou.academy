@@ -148,10 +148,10 @@ class StatusActionBar extends ImmutablePureComponent {
   handleOpen = () => {
     let state = {...this.context.router.history.location.state};
     if (state.mastodonModalKey) {
-      this.context.router.history.replace(`/statuses/${this.props.status.get('id')}`, { mastodonBackSteps: (state.mastodonBackSteps || 0) + 1 });
+      this.context.router.history.replace(`/@${this.props.status.getIn(['account', 'acct'])}/${this.props.status.get('id')}`, { mastodonBackSteps: (state.mastodonBackSteps || 0) + 1 });
     } else {
       state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
-      this.context.router.history.push(`/statuses/${this.props.status.get('id')}`, state);
+      this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}/${this.props.status.get('id')}`, state);
     }
   }
 
@@ -196,6 +196,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const anonymousAccess    = !me;
     const mutingConversation = status.get('muted');
     const publicStatus       = ['public', 'unlisted'].includes(status.get('visibility'));
+    const pinnableStatus     = ['public', 'unlisted', 'private'].includes(status.get('visibility'));
     const writtenByMe        = status.getIn(['account', 'id']) === me;
 
     let menu = [];
@@ -212,7 +213,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
     menu.push(null);
 
-    if (writtenByMe && publicStatus) {
+    if (writtenByMe && pinnableStatus) {
       menu.push({ text: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin), action: this.handlePinClick });
       menu.push(null);
     }
