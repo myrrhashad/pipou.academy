@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/firstmoversadvantage/hcaptcha
+  revision: e65246bea49374566a9dbaead59fdb35b46b086d
+  ref: e65246bea49374566a9dbaead59fdb35b46b086d
+  specs:
+    hcaptcha (6.0.1)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -564,7 +572,7 @@ GEM
       railties (>= 4.0.0)
     securecompare (1.0.0)
     semantic_range (3.0.0)
-    sidekiq (6.3.1)
+    sidekiq (6.4.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
@@ -719,6 +727,7 @@ DEPENDENCIES
   fog-openstack (~> 0.3)
   fuubar (~> 2.5)
   hamlit-rails (~> 0.2)
+  hcaptcha!
   hiredis (~> 0.6)
   htmlentities (~> 4.3)
   http (~> 5.0)
@@ -781,7 +790,7 @@ DEPENDENCIES
   ruby-progressbar (~> 1.11)
   sanitize (~> 6.0)
   scenic (~> 1.5)
-  sidekiq (~> 6.3)
+  sidekiq (~> 6.4)
   sidekiq-bulk (~> 0.2.0)
   sidekiq-scheduler (~> 3.1)
   sidekiq-unique-jobs (~> 7.1)
