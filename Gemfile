@@ -96,8 +96,6 @@ gem 'webpacker', '~> 5.4'
 gem 'webpush', github: 'ClearlyClaire/webpush', ref: 'f14a4d52e201128b1b00245d11b6de80d6cfdcd9'
 gem 'webauthn', '~> 2.5'
 
-gem 'hcaptcha', git: 'https://github.com/firstmoversadvantage/hcaptcha', ref:  'e65246bea49374566a9dbaead59fdb35b46b086d', require: 'hcaptcha/rails'
-
 gem 'json-ld'
 gem 'json-ld-preloaded', '~> 3.2'
 gem 'rdf-normalize', '~> 0.5'
