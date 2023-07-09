@@ -264,7 +264,7 @@
   }
 
   &.status-direct {
-    background: mix($ui-base-color, $ui-highlight-color, 95%);
+    background: lighten($ui-base-color, 8%);
     border-bottom-color: lighten($ui-base-color, 12%);
   }
 
