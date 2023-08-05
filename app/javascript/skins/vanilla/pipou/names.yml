@@ -1,4 +1,9 @@
 en:
   skins:
-    glitch:
+    vanilla:
       pipou: Pipou Academy's theme
+      
+fr:
+  skins:
+    vanilla:
+      pipou: Thème de Pipou Academy
