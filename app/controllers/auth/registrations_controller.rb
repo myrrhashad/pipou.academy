@@ -9,7 +9,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   before_action :set_invite, only: [:new, :create]
   before_action :check_enabled_registrations, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
-  before_action :set_pack
   before_action :set_sessions, only: [:edit, :update]
   before_action :set_strikes, only: [:edit, :update]
   before_action :set_body_classes, only: [:new, :create, :edit, :update]
@@ -96,19 +95,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-
-  def check_captcha
-    if ENV['HCAPTCHA_ENABLED'] == 'true' && !verify_hcaptcha
-      build_resource(sign_up_params)
-      resource.validate
-      resource.errors.add(:base, flash.delete(:hcaptcha_error))
-      respond_with resource
-    end
-  end
-
-  def set_pack
-    use_pack %w(edit update).include?(action_name) ? 'admin' : 'auth'
-  end
 
   def set_body_classes
     @body_classes = %w(edit update).include?(action_name) ? 'admin' : 'lighter'
