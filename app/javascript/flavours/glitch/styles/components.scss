@@ -1792,7 +1792,7 @@ body > [data-popper-placement] {
 }
 
 .status__wrapper-direct {
-  background: rgba($ui-highlight-color, 0.05);
+  background: lighten($ui-base-color, 8%);
 
   &:focus {
     background: rgba($ui-highlight-color, 0.05);
@@ -1915,7 +1915,7 @@ body > [data-popper-placement] {
 .detailed-status__wrapper-direct {
   .detailed-status,
   .detailed-status__action-bar {
-    background: mix($ui-base-color, $ui-highlight-color, 95%);
+    background: lighten($ui-base-color, 8%);
   }
 
   &:focus {
