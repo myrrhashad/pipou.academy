@@ -11686,3 +11686,152 @@ noscript {
     height: 20px;
   }
 }
+
+// add scroll bar to reply preview if you're replying to a long post
+
+.compose-form .reply-indicator__content {
+   overflow: scroll;
+    max-height: fit-content;
+}
+
+.reply-indicator__main .reply-indicator__content {
+    display: inline;
+}
+
+// remove the truncation of paragraphs after the first in some notifications, using an ellipsis instead to denote there's more to read
+
+.notification-group__embedded-status__content p {
+display: block;
+}
+
+// emoji embiggening 
+
+.edit-indicator__content .emojione, .reply-indicator__content .emojione, .status__content .emojione {
+    height: 24px;
+    width: 24px;
+}
+
+.detailed-status .status__content .emojione {
+    height: 28px;
+    width: 28px;
+}
+
+
+// emoji button : sets the emoji button back in the top right
+
+.compose-form__highlightable {
+	position: relative;
+}
+
+.compose-form .autosuggest-textarea__textarea {
+	padding-right: 24px;
+}
+
+.compose-form__buttons [aria-label*="emoji"] {
+	position: absolute;
+	top: .5rem;
+	right: .5rem;
+}
+.edit-indicator__cancel {
+   position: relative;
+   right: 1.1rem;
+}
+
+// Compose form :  Why are the buttons inside? Why?
+
+.compose-form__highlightable {
+    border: 0;
+    background: 0;
+}
+
+.compose-form .autosuggest-textarea__textarea,
+.compose-form .spoiler-input__input {
+    border: 1px solid var(--background-border-color);
+    border-radius: 4px;
+}
+
+.compose-form__footer {
+    display: grid;
+    grid-template-areas:
+        "buttons buttons"
+        "dropdowns submit";
+    padding: 0;
+}
+
+.compose-form__buttons {
+    grid-area: buttons;
+}
+
+.compose-form__dropdowns {
+    grid-area: dropdowns;
+}
+
+.compose-form__submit {
+    grid-area: submit;
+}
+
+.compose-form__actions {
+    display: contents;
+}
+
+.compose-form__uploads {
+    padding: 0;
+}
+
+.compose-form .spoiler-input__input {
+    border-radius: 4px 4px 0 0;
+}
+
+.compose-form .spoiler-input + .autosuggest-textarea .autosuggest-textarea__textarea {
+    border-radius: 0 0 4px 4px;
+    border-top: 0;
+}
+
+.compose-form .spoiler-input .autosuggest-input {
+    border-bottom: 0;
+}
+
+.compose-form__poll .poll__option {
+    padding: 0;
+}
+
+.emoji-picker-dropdown__menu {
+    margin-left: 5px;
+}
+
+.compose-form__footer [title$="privacy"] span {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+// Changes the 'Show anyway' and 'Hide post' text under Content Warnings to instead be a 'show/hide' toggle. 
+
+.content-warning .link-button span {
+ font-size:0;
+}
+
+.content-warning .link-button span::after {
+  content: "Show/Hide";
+  font-size: 14px;
+  display: inline;
+}
+
+// Changes the alert symbol (A ! inside a triangle) for adding a content warning to a toot to instead just read 'CW' 
+
+.compose-form__buttons button[aria-label$="content warning"] svg {
+        display: none;
+    }
+    
+.compose-form__buttons button[aria-label$="content warning"]::before {
+        display: flex;
+        content: 'CW';
+        min-width: 20px;
+        min-height: 20px;
+        align-items: center;
+        justify-content: center;
+    }
