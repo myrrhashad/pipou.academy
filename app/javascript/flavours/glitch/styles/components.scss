@@ -11687,7 +11687,7 @@ noscript {
   }
 }
 
-// add scroll bar to reply preview if you're replying to a long post
+// add scroll bar to reply preview if you're replying to a long post : OK
 
 .compose-form .reply-indicator__content {
    overflow: scroll;
@@ -11698,7 +11698,7 @@ noscript {
     display: inline;
 }
 
-// remove the truncation of paragraphs after the first in some notifications, using an ellipsis instead to denote there's more to read
+// remove the truncation of paragraphs after the first in some notifications, using an ellipsis instead to denote there's more to read : OK
 
 .notification-group__embedded-status__content p {
 display: block;
@@ -11716,28 +11716,7 @@ display: block;
     width: 28px;
 }
 
-
-// emoji button : sets the emoji button back in the top right
-
-.compose-form__highlightable {
-	position: relative;
-}
-
-.compose-form .autosuggest-textarea__textarea {
-	padding-right: 24px;
-}
-
-.compose-form__buttons [aria-label*="emoji"] {
-	position: absolute;
-	top: .5rem;
-	right: .5rem;
-}
-.edit-indicator__cancel {
-   position: relative;
-   right: 1.1rem;
-}
-
-// Compose form :  Why are the buttons inside? Why?
+// Compose form :  Why are the buttons inside? Why? OK
 
 .compose-form__highlightable {
     border: 0;
@@ -11808,6 +11787,27 @@ display: block;
         white-space: nowrap;
         width: 1px;
     }
+
+
+// emoji button : sets the emoji button back in the top right
+
+.compose-form__highlightable {
+	position: relative;
+}
+
+.compose-form .autosuggest-textarea__textarea {
+	padding-right: 24px;
+}
+
+.compose-form__buttons [aria-label*="emoji"] {
+	position: absolute;
+	top: .5rem;
+	right: .5rem;
+}
+.edit-indicator__cancel {
+   position: relative;
+   right: 1.1rem;
+}
 
 // Changes the 'Show anyway' and 'Hide post' text under Content Warnings to instead be a 'show/hide' toggle. 
 
