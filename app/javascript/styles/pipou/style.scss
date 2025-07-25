@@ -8,6 +8,7 @@ $gold-star: #ca8f04;        // Dark Goldenrod
 
 // Values from the classic Mastodon UI
 $classic-base-color: #2c162c;         // Dark Purple
+$classic-lighter-color: #4F284F;      // Violet
 $classic-primary-color: #d0a0d0;      // Light Pink
 $classic-secondary-color: #6abafd;    // Light Blue
 $classic-highlight-color: #6abafd;    // Light Blue
@@ -23,7 +24,7 @@ $error-value-color: $error-red !default;
 
 // Tell UI to use selected colors
 $ui-base-color: $classic-base-color !default;                  // Darkest
-$ui-base-lighter-color: lighten($ui-base-color, 26%) !default; // Lighter purple
+$ui-base-lighter-color: $classic-lighter-color !default;       // Violet
 $ui-primary-color: $classic-primary-color !default;            // Lighter
 $ui-secondary-color: $classic-secondary-color !default;        // Lightest
 $ui-highlight-color: $classic-highlight-color !default;        // Vibrant
