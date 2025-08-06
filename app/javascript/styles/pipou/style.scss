@@ -8,12 +8,12 @@ $error-red: #df405a;        // Cerise
 $warning-red: #ff5050;      // Sunset Orange
 $gold-star: #ca8f04;        // Dark Goldenrod
 
-// Values from the classic Mastodon UI
-$classic-base-color: #2c162c;         // Dark Purple
-$classic-lighter-color: #4F284F;      // Violet
-$classic-primary-color: #d0a0d0;      // Light Pink
-$classic-secondary-color: #6abafd;    // Light Blue
-$classic-highlight-color: #6abafd;    // Light Blue
+// Values tweaked from the classic Mastodon UI
+$pipou-base-color: #2c162c;         // Dark Purple
+$pipou-lighter-color: #4F284F;      // Violet
+$pipou-primary-color: #d0a0d0;      // Light Pink
+$pipou-secondary-color: #6abafd;    // Light Blue
+$pipou-highlight-color: #6abafd;    // Light Blue
 
 // Variables for defaults in UI
 $base-shadow-color: $black !default;
@@ -25,11 +25,11 @@ $valid-value-color: $success-green !default;
 $error-value-color: $error-red !default;
 
 // Tell UI to use selected colors
-$ui-base-color: $classic-base-color !default;                  // Darkest
-$ui-base-lighter-color: $classic-lighter-color !default;       // Violet
-$ui-primary-color: $classic-primary-color !default;            // Lighter
-$ui-secondary-color: $classic-secondary-color !default;        // Lightest
-$ui-highlight-color: $classic-highlight-color !default;        // Vibrant
+$ui-base-color: $pipou-base-color !default;                  // Darkest
+$ui-base-lighter-color: $pipou-lighter-color !default;       // Violet
+$ui-primary-color: $pipou-primary-color !default;            // Lighter
+$ui-secondary-color: $pipou-secondary-color !default;        // Lightest
+$ui-highlight-color: $pipou-highlight-color !default;        // Vibrant
 
 // Language codes that uses CJK fonts
 $cjk-langs: ja, ko, zh-CN, zh-HK, zh-TW;
