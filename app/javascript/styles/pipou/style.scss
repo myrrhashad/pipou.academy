@@ -1,0 +1,34 @@
+@use '../mastodon/functions' as *;
+
+// Commonly used web colors
+$black: #000000;            // Black
+$white: #ffffff;            // White
+$success-green: #79bd9a;    // Padua
+$error-red: #df405a;        // Cerise
+$warning-red: #ff5050;      // Sunset Orange
+$gold-star: #ca8f04;        // Dark Goldenrod
+
+// Values from the classic Mastodon UI
+$pipou-base-color: #2c162c;         // Dark Purple
+$pipou-lighter-color: #4F284F;      // Violet
+$pipou-primary-color: #d0a0d0;      // Light Pink
+$pipou-secondary-color: #6abafd;    // Light Blue
+$pipou-highlight-color: #6abafd;    // Light Blue
+
+@use '../mastodon/variables' with (
+  // Variables for defaults in UI
+  $base-shadow-color: $black,
+  $base-overlay-background: $black,
+  $base-border-color: $white,
+  $simple-background-color: $white,
+  $primary-text-color: $white,
+  $valid-value-color: $success-green,
+  $error-value-color: $error-red,
+
+  // Tell UI to use selected colors
+  $ui-base-color: $pipou-base-color,                  // Darkest
+  $ui-base-lighter-color: $pipou-lighter-color,       // Violet
+  $ui-primary-color: $pipou-primary-color,           // Lighter
+  $ui-secondary-color: $pipou-secondary-color,        // Lightest
+  $ui-highlight-color: $pipou-highlight-color        // Vibrant
+);
