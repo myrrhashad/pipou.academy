@@ -9,6 +9,7 @@ interface BaseProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   block?: boolean;
   secondary?: boolean;
+  plain?: boolean;
   compact?: boolean;
   dangerous?: boolean;
   loading?: boolean;
@@ -35,6 +36,7 @@ export const Button: React.FC<Props> = ({
   disabled,
   block,
   secondary,
+  plain,
   compact,
   dangerous,
   loading,
@@ -62,6 +64,7 @@ export const Button: React.FC<Props> = ({
     <button
       className={classNames('button', className, {
         'button-secondary': secondary,
+        'button--plain': plain,
         'button--compact': compact,
         'button--block': block,
         'button--dangerous': dangerous,
@@ -75,6 +78,7 @@ export const Button: React.FC<Props> = ({
       aria-live={loading !== undefined ? 'polite' : undefined}
       onClick={handleClick}
       title={title}
+      // eslint-disable-next-line react/button-has-type -- set correctly via TS
       type={type}
       {...props}
     >

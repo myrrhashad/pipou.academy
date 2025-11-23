@@ -41,7 +41,7 @@ class Tag < ApplicationRecord
   HASHTAG_LAST_SEQUENCE = '([[:word:]_]*[[:alpha:]][[:word:]_]*)'
   HASHTAG_NAME_PAT = "#{HASHTAG_FIRST_SEQUENCE}|#{HASHTAG_LAST_SEQUENCE}".freeze
 
-  HASHTAG_RE = %r{(?<![=/)\p{Alnum}])#(#{HASHTAG_NAME_PAT})}
+  HASHTAG_RE = %r{(?<![=/)\p{Alnum}])[#＃](#{HASHTAG_NAME_PAT})}
   HASHTAG_NAME_RE = /\A(#{HASHTAG_NAME_PAT})\z/i
   HASHTAG_INVALID_CHARS_RE = /[^[:alnum:]\u0E47-\u0E4E#{HASHTAG_SEPARATORS}]/
 
@@ -164,9 +164,10 @@ class Tag < ApplicationRecord
   end
 
   def validate_display_name_change
-    unless HashtagNormalizer.new.normalize(display_name).casecmp(name).zero?
-      errors.add(:display_name,
-                 I18n.t('tags.does_not_match_previous_name'))
-    end
+    errors.add(:display_name, I18n.t('tags.does_not_match_previous_name')) unless display_name_matches_name?
+  end
+
+  def display_name_matches_name?
+    HashtagNormalizer.new.normalize(display_name).casecmp(name).zero?
   end
 end
