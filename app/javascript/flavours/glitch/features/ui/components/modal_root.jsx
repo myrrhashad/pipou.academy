@@ -10,6 +10,7 @@ import {
   BlockModal,
   DomainBlockModal,
   ReportModal,
+  ReportCollectionModal,
   SettingsModal,
   EmbedModal,
   ListAdder,
@@ -22,15 +23,15 @@ import {
   AnnualReportModal,
 } from 'flavours/glitch/features/ui/util/async-components';
 
-import BundleContainer from '../containers/bundle_container';
-
 import { ActionsModal } from './actions_modal';
 import AudioModal from './audio_modal';
 import { BoostModal } from './boost_modal';
+import Bundle from './bundle';
 import {
   ConfirmationModal,
   ConfirmDeleteStatusModal,
   ConfirmDeleteListModal,
+  ConfirmDeleteCollectionModal,
   ConfirmReplyModal,
   ConfirmEditStatusModal,
   ConfirmUnblockModal,
@@ -39,6 +40,7 @@ import {
   ConfirmClearNotificationsModal,
   ConfirmLogOutModal,
   ConfirmFollowToListModal,
+  ConfirmFollowToCollectionModal,
   ConfirmMissingAltTextModal,
   ConfirmRevokeQuoteModal,
   QuietPostQuoteInfoModal,
@@ -64,6 +66,7 @@ export const MODAL_COMPONENTS = {
   'CONFIRM': () => Promise.resolve({ default: ConfirmationModal }),
   'CONFIRM_DELETE_STATUS': () => Promise.resolve({ default: ConfirmDeleteStatusModal }),
   'CONFIRM_DELETE_LIST': () => Promise.resolve({ default: ConfirmDeleteListModal }),
+  'CONFIRM_DELETE_COLLECTION': () => Promise.resolve({ default: ConfirmDeleteCollectionModal }),
   'CONFIRM_REPLY': () => Promise.resolve({ default: ConfirmReplyModal }),
   'CONFIRM_EDIT_STATUS': () => Promise.resolve({ default: ConfirmEditStatusModal }),
   'CONFIRM_UNBLOCK': () => Promise.resolve({ default: ConfirmUnblockModal }),
@@ -72,6 +75,7 @@ export const MODAL_COMPONENTS = {
   'CONFIRM_CLEAR_NOTIFICATIONS': () => Promise.resolve({ default: ConfirmClearNotificationsModal }),
   'CONFIRM_LOG_OUT': () => Promise.resolve({ default: ConfirmLogOutModal }),
   'CONFIRM_FOLLOW_TO_LIST': () => Promise.resolve({ default: ConfirmFollowToListModal }),
+  'CONFIRM_FOLLOW_TO_COLLECTION': () => Promise.resolve({ default: ConfirmFollowToCollectionModal }),
   'CONFIRM_MISSING_ALT_TEXT': () => Promise.resolve({ default: ConfirmMissingAltTextModal }),
   'CONFIRM_PRIVATE_QUOTE_NOTIFY': () => Promise.resolve({ default: PrivateQuoteNotify }),
   'CONFIRM_REVOKE_QUOTE': () => Promise.resolve({ default: ConfirmRevokeQuoteModal }),
@@ -80,6 +84,9 @@ export const MODAL_COMPONENTS = {
   'BLOCK': BlockModal,
   'DOMAIN_BLOCK': DomainBlockModal,
   'REPORT': ReportModal,
+  'REPORT_COLLECTION': ReportCollectionModal,
+  'SHARE_COLLECTION': () => import('@/flavours/glitch/features/collections/components/share_modal').then(module => ({ default: module.CollectionShareModal })),
+  'REVOKE_COLLECTION_INCLUSION': () => import('@/flavours/glitch/features/collections/detail/revoke_collection_inclusion_modal').then(module => ({ default: module.RevokeCollectionInclusionModal })),
   'SETTINGS': SettingsModal,
   'DEPRECATED_SETTINGS': () => Promise.resolve({ default: DeprecatedSettingsModal }),
   'ACTIONS': () => Promise.resolve({ default: ActionsModal }),
@@ -94,7 +101,25 @@ export const MODAL_COMPONENTS = {
   'IGNORE_NOTIFICATIONS': IgnoreNotificationsModal,
   'ANNUAL_REPORT': AnnualReportModal,
   'COMPOSE_PRIVACY': () => Promise.resolve({ default: VisibilityModal }),
+  'ACCOUNT_NOTE': () => import('@/flavours/glitch/features/account_timeline/modals/note_modal').then(module => ({ default: module.AccountNoteModal })),
+  'ACCOUNT_FIELD_OVERFLOW': () => import('@/flavours/glitch/features/account_timeline/modals/field_modal').then(module => ({ default: module.AccountFieldModal })),
+  'ACCOUNT_EDIT_NAME': accountEditModal('NameModal'),
+  'ACCOUNT_EDIT_BIO': accountEditModal('BioModal'),
+  'ACCOUNT_EDIT_PROFILE_DISPLAY': accountEditModal('ProfileDisplayModal'),
+  'ACCOUNT_EDIT_VERIFY_LINKS': accountEditModal('VerifiedModal'),
+  'ACCOUNT_EDIT_FIELD_EDIT': accountEditModal('EditFieldModal'),
+  'ACCOUNT_EDIT_FIELD_DELETE': accountEditModal('DeleteFieldModal'),
+  'ACCOUNT_EDIT_FIELDS_REORDER': accountEditModal('ReorderFieldsModal'),
+  'ACCOUNT_EDIT_IMAGE_ALT': accountEditModal('ImageAltModal'),
+  'ACCOUNT_EDIT_IMAGE_DELETE': accountEditModal('ImageDeleteModal'),
+  'ACCOUNT_EDIT_IMAGE_UPLOAD': accountEditModal('ImageUploadModal'),
+  'ACCOUNT_HIDE_FEATURED_TAB': () => import('@/flavours/glitch/features/ui/components/confirmation_modals/hide_featured_tab').then(module => ({ default: module.ConfirmHideFeaturedTabModal })),
 };
+
+/** @arg {keyof import('@/flavours/glitch/features/account_edit/modals')} type */
+function accountEditModal(type) {
+  return () => import('@/flavours/glitch/features/account_edit/modals').then(module => ({ default: module[type] }));
+}
 
 export default class ModalRoot extends PureComponent {
 
@@ -147,11 +172,11 @@ export default class ModalRoot extends PureComponent {
       <Base backgroundColor={backgroundColor} onClose={props && props.noClose ? this.noop : this.handleClose} noEsc={props ? props.noEsc : false} ignoreFocus={ignoreFocus}>
         {visible && (
           <>
-            <BundleContainer fetchComponent={MODAL_COMPONENTS[type]} loading={this.renderLoading} error={this.renderError} renderDelay={200}>
+            <Bundle key={type} fetchComponent={MODAL_COMPONENTS[type]} loading={this.renderLoading} error={this.renderError} renderDelay={200}>
               {(SpecificComponent) => {
                 return <SpecificComponent {...props} onChangeBackgroundColor={this.setBackgroundColor} onClose={this.handleClose} ref={this.setModalRef} />;
               }}
-            </BundleContainer>
+            </Bundle>
 
             <Helmet>
               <meta name='robots' content='noindex' />
