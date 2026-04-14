@@ -3,4 +3,5 @@
 
 html {
   @include base.palette;
+  @include pipou.tokens;
 }
