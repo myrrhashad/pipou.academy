@@ -1,0 +1,6 @@
+@use 'base';
+@use 'style';
+
+html {
+  @include base.palette;
+}
