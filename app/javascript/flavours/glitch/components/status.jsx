@@ -30,6 +30,7 @@ import StatusActionBar from './status_action_bar';
 import StatusContent from './status_content';
 import StatusIcons from './status_icons';
 import StatusPrepend from './status_prepend';
+import { CollectionPreviewCard } from '../features/collections/components/collection_preview_card';
 
 const domParser = new DOMParser();
 
@@ -659,6 +660,13 @@ class Status extends ImmutablePureComponent {
         );
       }
       mediaIcons.push('link');
+    } else if (status.get('tagged_collections').size && settings.get('inline_preview_cards') && !this.props.muted) {
+      const firstLinkedCollection = status.get('tagged_collections').first();
+      if (firstLinkedCollection) {
+        media = (
+          <CollectionPreviewCard collection={firstLinkedCollection.toJS()} />
+        );
+      }
     }
 
     if (status.get('poll')) {
