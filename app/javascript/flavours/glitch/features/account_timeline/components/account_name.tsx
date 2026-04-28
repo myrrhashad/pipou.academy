@@ -8,14 +8,13 @@ import classNames from 'classnames';
 import Overlay from 'react-overlays/esm/Overlay';
 
 import { showAlert } from '@/flavours/glitch/actions/alerts';
-import { Badge } from '@/flavours/glitch/components/badge';
+import { FollowsYouBadge } from '@/flavours/glitch/components/badge';
 import { Button } from '@/flavours/glitch/components/button';
 import { DisplayName } from '@/flavours/glitch/components/display_name';
 import { Icon } from '@/flavours/glitch/components/icon';
 import { useAccount } from '@/flavours/glitch/hooks/useAccount';
 import { useRelationship } from '@/flavours/glitch/hooks/useRelationship';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
-import FollowerIcon from '@/images/icons/icon_follower.svg?react';
 import AtIcon from '@/material-icons/400-24px/alternate_email.svg?react';
 import ContentCopyIcon from '@/material-icons/400-24px/content_copy.svg?react';
 import HelpIcon from '@/material-icons/400-24px/help.svg?react';
@@ -60,17 +59,7 @@ export const AccountName: FC<{ accountId: string }> = ({ accountId }) => {
         <h1>
           <DisplayName account={account} variant='simple' />
         </h1>
-        {relationship?.followed_by && (
-          <Badge
-            icon={<FollowerIcon className={classes.followerBadgeIcon} />}
-            label={
-              <FormattedMessage
-                id='account.follows_you'
-                defaultMessage='Follows you'
-              />
-            }
-          />
-        )}
+        {relationship?.followed_by && <FollowsYouBadge />}
       </div>
 
       <AccountNameHelp
