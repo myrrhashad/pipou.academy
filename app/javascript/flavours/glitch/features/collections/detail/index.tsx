@@ -6,17 +6,22 @@ import { Helmet } from 'react-helmet';
 import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { openModal } from '@/flavours/glitch/actions/modal';
-import { useAccountHandle } from '@/flavours/glitch/components/display_name/default';
 import HelpIcon from '@/material-icons/400-24px/help.svg?react';
 import ListAltIcon from '@/material-icons/400-24px/list_alt.svg?react';
 import ShareIcon from '@/material-icons/400-24px/share.svg?react';
-import type { ApiCollectionJSON } from 'flavours/glitch/api_types/collections';
+import StarIcon from '@/material-icons/400-24px/star.svg?react';
+import { openModal } from 'flavours/glitch/actions/modal';
+import type {
+  ApiCollectionJSON,
+  CollectionAccountItem,
+} from 'flavours/glitch/api_types/collections';
 import { Badge } from 'flavours/glitch/components/badge';
 import { Callout } from 'flavours/glitch/components/callout';
 import { Column } from 'flavours/glitch/components/column';
 import { ColumnHeader } from 'flavours/glitch/components/column_header';
 import { DisplayName } from 'flavours/glitch/components/display_name';
+import { useAccountHandle } from 'flavours/glitch/components/display_name/default';
+import { FormattedDateWrapper } from 'flavours/glitch/components/formatted_date';
 import { IconButton } from 'flavours/glitch/components/icon_button';
 import { Scrollable } from 'flavours/glitch/components/scrollable_list/components';
 import { useAccount } from 'flavours/glitch/hooks/useAccount';
@@ -69,13 +74,15 @@ export const AuthorNote: React.FC<{ id: string }> = ({ id }) => {
 };
 
 const RevokeControls: React.FC<{
+  currentUserCollectionItem: CollectionAccountItem;
   collection: ApiCollectionJSON;
-}> = ({ collection }) => {
+}> = ({ currentUserCollectionItem, collection }) => {
   const authorAccount = useAccount(collection.account_id);
   const confirmRevoke = useConfirmRevoke(collection);
 
   return (
     <Callout
+      icon={StarIcon}
       title={
         <FormattedMessage
           id='collections.detail.you_are_in_this_collection'
@@ -95,7 +102,14 @@ const RevokeControls: React.FC<{
         defaultMessage='{author} added you on {date}'
         values={{
           author: <DisplayName account={authorAccount} variant='simple' />,
-          date: '{date}', // TODO: Data not yet provided by API
+          date: (
+            <FormattedDateWrapper
+              value={currentUserCollectionItem.created_at}
+              day='2-digit'
+              month='short'
+              year='numeric'
+            />
+          ),
         }}
       />
     </Callout>
@@ -131,10 +145,11 @@ const CollectionHeader: React.FC<{ collection: ApiCollectionJSON }> = ({
   const history = useHistory();
 
   const isOwnCollection = account_id === me;
-  const currentUserIndex = items.findIndex(
+  const currentUserCollectionItem = items.find(
     (account) => account.account_id === me,
   );
-  const isCurrentUserInCollection = !isOwnCollection && currentUserIndex > -1;
+  const isCurrentUserInCollection =
+    !isOwnCollection && !!currentUserCollectionItem;
 
   const openShareModal = useCallback(() => {
     dispatch(
@@ -184,7 +199,12 @@ const CollectionHeader: React.FC<{ collection: ApiCollectionJSON }> = ({
       </div>
       {description && <p className={classes.description}>{description}</p>}
       {hasPendingAccounts && <PendingNote />}
-      {isCurrentUserInCollection && <RevokeControls collection={collection} />}
+      {isCurrentUserInCollection && (
+        <RevokeControls
+          currentUserCollectionItem={currentUserCollectionItem}
+          collection={collection}
+        />
+      )}
     </header>
   );
 };
