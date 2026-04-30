@@ -6,22 +6,22 @@ import { defineMessage, useIntl } from 'react-intl';
 import classNames from 'classnames';
 
 import { openModal } from '@/flavours/glitch/actions/modal';
-import { CustomEmojiProvider } from '@/flavours/glitch/components/emoji/context';
-import type { EmojiHTMLProps } from '@/flavours/glitch/components/emoji/html';
-import { EmojiHTML } from '@/flavours/glitch/components/emoji/html';
-import { Icon } from '@/flavours/glitch/components/icon';
-import { IconButton } from '@/flavours/glitch/components/icon_button';
-import { MiniCard } from '@/flavours/glitch/components/mini_card';
-import { useElementHandledLink } from '@/flavours/glitch/components/status/handled_link';
+import { useFieldHtml } from '@/flavours/glitch/features/account_timeline/hooks/useFieldHtml';
+import { cleanExtraEmojis } from '@/flavours/glitch/features/emoji/normalize';
 import { useAccount } from '@/flavours/glitch/hooks/useAccount';
 import { useResizeObserver } from '@/flavours/glitch/hooks/useObserver';
+import type { AccountFieldShape } from '@/flavours/glitch/models/account';
 import { useAppDispatch } from '@/flavours/glitch/store';
 import IconVerified from '@/images/icons/icon_verified.svg?react';
 import MoreIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 
-import { cleanExtraEmojis } from '../../emoji/normalize';
-import type { AccountField } from '../common';
-import { useFieldHtml } from '../hooks/useFieldHtml';
+import { CustomEmojiProvider } from '../emoji/context';
+import type { EmojiHTMLProps } from '../emoji/html';
+import { EmojiHTML } from '../emoji/html';
+import { Icon } from '../icon';
+import { IconButton } from '../icon_button';
+import { MiniCard } from '../mini_card';
+import { useElementHandledLink } from '../status/handled_link';
 
 import classes from './styles.module.scss';
 
@@ -36,6 +36,12 @@ const dateFormatOptions: Intl.DateTimeFormatOptions = {
   hour: '2-digit',
   minute: '2-digit',
 };
+
+export interface AccountField extends AccountFieldShape {
+  nameHasEmojis: boolean;
+  value_plain: string;
+  valueHasEmojis: boolean;
+}
 
 export const AccountHeaderFields: FC<{ accountId: string }> = ({
   accountId,

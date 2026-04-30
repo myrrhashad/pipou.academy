@@ -4,9 +4,6 @@ import classNames from 'classnames';
 import { Helmet } from 'react-helmet';
 
 import { openModal } from '@/flavours/glitch/actions/modal';
-import { AccountBio } from '@/flavours/glitch/components/account_bio';
-import { Avatar } from '@/flavours/glitch/components/avatar';
-import { AnimateEmojiProvider } from '@/flavours/glitch/components/emoji/context';
 import FollowRequestNoteContainer from '@/flavours/glitch/features/account/containers/follow_request_note_container';
 import { useLayout } from '@/flavours/glitch/hooks/useLayout';
 import { useVisibility } from '@/flavours/glitch/hooks/useVisibility';
@@ -19,18 +16,20 @@ import type { Account } from '@/flavours/glitch/models/account';
 import { getAccountHidden } from '@/flavours/glitch/selectors/accounts';
 import { useAppSelector, useAppDispatch } from '@/flavours/glitch/store';
 
-import { FamiliarFollowers } from '../../../components/familiar_followers';
+import { AccountBio } from '../account_bio';
+import { Avatar } from '../avatar';
+import { AnimateEmojiProvider } from '../emoji/context';
+import { FamiliarFollowers } from '../familiar_followers';
 
-import { AccountName } from './account_name';
-import { AccountSubscriptionForm } from './account_subscription_form';
 import { AccountButtons } from './buttons';
 import { AccountHeaderFields } from './fields';
-import { AccountInfo } from './info';
 import { MemorialNote } from './memorial_note';
 import { MovedNote } from './moved_note';
+import { AccountName } from './name';
 import { AccountNote } from './note';
 import { AccountNumberFields } from './number_fields';
 import classes from './styles.module.scss';
+import { AccountSubscriptionForm } from './subscription_form';
 import { AccountTabs } from './tabs';
 
 const titleFromAccount = (account: Account) => {
@@ -113,10 +112,6 @@ export const AccountHeader: React.FC<{
         )}
 
         <div className={classNames('account__header__image', classes.header)}>
-          {me !== account.id && relationship && (
-            <AccountInfo relationship={relationship} />
-          )}
-
           {!suspendedOrHidden && (
             <img
               src={autoPlayGif ? account.header : account.header_static}

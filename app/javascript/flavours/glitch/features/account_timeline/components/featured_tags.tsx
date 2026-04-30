@@ -13,8 +13,8 @@ import { useOverflowButton } from '@/flavours/glitch/hooks/useOverflow';
 import { selectAccountFeaturedTags } from '@/flavours/glitch/selectors/accounts';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
 
-import { useAccountContext } from './context';
-import classes from './styles.module.scss';
+import { useAccountContext } from '../hooks/useAccountContext';
+import classes from '../styles.module.scss';
 
 export const FeaturedTags: FC<{ accountId: string }> = ({ accountId }) => {
   // Fetch tags.

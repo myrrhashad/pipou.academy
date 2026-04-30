@@ -24,7 +24,6 @@ import {
 import { openModal } from '@/flavours/glitch/actions/modal';
 import { initMuteModal } from '@/flavours/glitch/actions/mutes';
 import { initReport } from '@/flavours/glitch/actions/reports';
-import { Dropdown } from '@/flavours/glitch/components/dropdown_menu';
 import { useAccount } from '@/flavours/glitch/hooks/useAccount';
 import { useIdentity } from '@/flavours/glitch/identity_context';
 import type { Account } from '@/flavours/glitch/models/account';
@@ -42,6 +41,8 @@ import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 import PersonRemoveIcon from '@/material-icons/400-24px/person_remove.svg?react';
 import ReportIcon from '@/material-icons/400-24px/report.svg?react';
 import ShareIcon from '@/material-icons/400-24px/share.svg?react';
+
+import { Dropdown } from '../dropdown_menu';
 
 import classes from './styles.module.scss';
 

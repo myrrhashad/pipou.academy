@@ -6,15 +6,16 @@ import { defineMessages, useIntl } from 'react-intl';
 import classNames from 'classnames';
 
 import { followAccount } from '@/flavours/glitch/actions/accounts';
-import { CopyIconButton } from '@/flavours/glitch/components/copy_icon_button';
-import { FollowButton } from '@/flavours/glitch/components/follow_button';
-import { IconButton } from '@/flavours/glitch/components/icon_button';
 import { useAccount } from '@/flavours/glitch/hooks/useAccount';
 import { getAccountHidden } from '@/flavours/glitch/selectors/accounts';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
 import NotificationsIcon from '@/material-icons/400-24px/notifications.svg?react';
 import NotificationsActiveIcon from '@/material-icons/400-24px/notifications_active-fill.svg?react';
 import ShareIcon from '@/material-icons/400-24px/share.svg?react';
+
+import { CopyIconButton } from '../copy_icon_button';
+import { FollowButton } from '../follow_button';
+import { IconButton } from '../icon_button';
 
 import { AccountMenu } from './menu';
 

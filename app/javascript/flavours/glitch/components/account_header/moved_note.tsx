@@ -1,9 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 
-import { DisplayName } from '@/flavours/glitch/components/display_name';
-import { AvatarOverlay } from 'flavours/glitch/components/avatar_overlay';
-import { Permalink } from 'flavours/glitch/components/permalink';
 import { useAppSelector } from 'flavours/glitch/store';
+
+import { AvatarOverlay } from '../avatar_overlay';
+import { DisplayName } from '../display_name';
+import { Permalink } from '../permalink';
 
 export const MovedNote: React.FC<{
   accountId: string;

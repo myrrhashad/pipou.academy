@@ -4,9 +4,10 @@ import { FormattedMessage } from 'react-intl';
 
 import type { NavLinkProps } from 'react-router-dom';
 
-import { TabLink, TabList } from '@/flavours/glitch/components/tab_list';
 import { useAccount } from '@/flavours/glitch/hooks/useAccount';
 import { useAccountId } from '@/flavours/glitch/hooks/useAccountId';
+
+import { TabLink, TabList } from '../tab_list';
 
 import classes from './styles.module.scss';
 

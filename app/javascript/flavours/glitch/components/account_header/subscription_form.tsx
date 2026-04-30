@@ -8,16 +8,17 @@ import { Link } from 'react-router-dom';
 
 import { AxiosError } from 'axios';
 
-import { apiSubscribeByEmail } from 'flavours/glitch/api/accounts';
+import { apiSubscribeByEmail } from '@/flavours/glitch/api/accounts';
 import type {
   ValidationErrorResponse,
   ValidationError,
-} from 'flavours/glitch/api_types/errors';
-import { Button } from 'flavours/glitch/components/button';
-import { DisplayName } from 'flavours/glitch/components/display_name';
-import type { FieldStatus } from 'flavours/glitch/components/form_fields';
-import { TextInputField } from 'flavours/glitch/components/form_fields/text_input_field';
-import { useAppSelector } from 'flavours/glitch/store';
+} from '@/flavours/glitch/api_types/errors';
+import { useAppSelector } from '@/flavours/glitch/store';
+
+import { Button } from '../button';
+import { DisplayName } from '../display_name';
+import type { FieldStatus } from '../form_fields';
+import { TextInputField } from '../form_fields/text_input_field';
 
 import classes from './styles.module.scss';
 

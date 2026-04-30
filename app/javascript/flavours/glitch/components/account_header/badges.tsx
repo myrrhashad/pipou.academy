@@ -4,6 +4,10 @@ import type { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { fetchRelationships } from '@/flavours/glitch/actions/accounts';
+import { useAccount } from '@/flavours/glitch/hooks/useAccount';
+import type { AccountRole } from '@/flavours/glitch/models/account';
+import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
+
 import {
   AdminBadge,
   AutomatedBadge,
@@ -11,10 +15,7 @@ import {
   BlockedBadge,
   GroupBadge,
   MutedBadge,
-} from '@/flavours/glitch/components/badge';
-import { useAccount } from '@/flavours/glitch/hooks/useAccount';
-import type { AccountRole } from '@/flavours/glitch/models/account';
-import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
+} from '../badge';
 
 import classes from './styles.module.scss';
 

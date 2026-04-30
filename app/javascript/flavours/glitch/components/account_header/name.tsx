@@ -8,10 +8,6 @@ import classNames from 'classnames';
 import Overlay from 'react-overlays/esm/Overlay';
 
 import { showAlert } from '@/flavours/glitch/actions/alerts';
-import { FollowsYouBadge } from '@/flavours/glitch/components/badge';
-import { Button } from '@/flavours/glitch/components/button';
-import { DisplayName } from '@/flavours/glitch/components/display_name';
-import { Icon } from '@/flavours/glitch/components/icon';
 import { useAccount } from '@/flavours/glitch/hooks/useAccount';
 import { useRelationship } from '@/flavours/glitch/hooks/useRelationship';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
@@ -19,6 +15,11 @@ import AtIcon from '@/material-icons/400-24px/alternate_email.svg?react';
 import ContentCopyIcon from '@/material-icons/400-24px/content_copy.svg?react';
 import HelpIcon from '@/material-icons/400-24px/help.svg?react';
 import DomainIcon from '@/material-icons/400-24px/language.svg?react';
+
+import { FollowsYouBadge } from '../badge';
+import { Button } from '../button';
+import { DisplayName } from '../display_name';
+import { Icon } from '../icon';
 
 import { AccountBadges } from './badges';
 import classes from './styles.module.scss';

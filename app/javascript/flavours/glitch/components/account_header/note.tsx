@@ -5,10 +5,11 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import { fetchRelationships } from '@/flavours/glitch/actions/accounts';
 import { openModal } from '@/flavours/glitch/actions/modal';
-import { Callout } from '@/flavours/glitch/components/callout';
-import { IconButton } from '@/flavours/glitch/components/icon_button';
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
 import EditIcon from '@/material-icons/400-24px/edit_square.svg?react';
+
+import { Callout } from '../callout';
+import { IconButton } from '../icon_button';
 
 import classes from './styles.module.scss';
 
