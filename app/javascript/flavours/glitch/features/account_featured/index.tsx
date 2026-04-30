@@ -27,8 +27,8 @@ import { useAccountVisibility } from '@/flavours/glitch/hooks/useAccountVisibili
 import { useAppDispatch, useAppSelector } from '@/flavours/glitch/store';
 import AddIcon from '@/material-icons/400-24px/add.svg?react';
 
-import { useAccountCollections } from '../collections';
 import { CollectionListItem } from '../collections/components/collection_list_item';
+import { useCollectionsCreatedBy } from '../collections/overview/created_by_you';
 import { areCollectionsEnabled } from '../collections/utils';
 
 import { EmptyMessage } from './components/empty_message';
@@ -67,7 +67,7 @@ const AccountFeatured: React.FC<{ multiColumn: boolean }> = ({
       ) as ImmutableList<string>,
   );
   const { collections, status: collectionsLoadStatus } =
-    useAccountCollections(accountId);
+    useCollectionsCreatedBy(accountId);
 
   const { listedCollections = [], unlistedCollections = [] } = Object.groupBy(
     collections,
