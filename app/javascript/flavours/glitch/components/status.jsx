@@ -31,6 +31,7 @@ import StatusContent from './status_content';
 import StatusIcons from './status_icons';
 import StatusPrepend from './status_prepend';
 import { CollectionPreviewCard } from '../features/collections/components/collection_preview_card';
+import { compareUrls } from '../utils/compare_urls';
 
 const domParser = new DOMParser();
 
