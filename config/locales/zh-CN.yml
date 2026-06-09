@@ -732,7 +732,7 @@ zh-CN:
       action_log: 审计日志
       action_taken_by: 操作执行者
       actions:
-        delete_description_html: 被举报的嘟文将被删除，同时该账号将被标记一次处罚，以供未来同一账号再次违规时参考。
+        delete_description_html: 被举报的嘟文和收藏列表将被删除，同时该账号将被标记一次处罚，以供未来同一账号再次违规时参考。
         mark_as_sensitive_description_html: 被举报的嘟文将被标记为敏感，同时该账号将被标记一次处罚，以供未来同一账号再次违规时参考。
         other_description_html: 查看更多控制该账号行为的选项，并自定义编写与被举报账号的通信。
         resolve_description_html: 不会对被举报账号采取任何动作，举报将被关闭，也不会留下处罚记录。
@@ -759,7 +759,7 @@ zh-CN:
       confirm: 确认
       confirm_action: 确认对 @%{acct} 的管理操作
       created_at: 举报时间
-      delete_and_resolve: 删除嘟文
+      delete_and_resolve: 删除内容
       forwarded: 已转发
       forwarded_replies_explanation: 该举报来自外站用户，涉及外站内容。之所以转发给你，是因为被举报的内容是对你站点一位用户的回复。
       forwarded_to: 转发举报到 %{domain}
@@ -940,10 +940,16 @@ zh-CN:
           disabled: 需要特定的用户角色
           public: 每个人
       landing_page:
+        hints:
+          about_html: 关于此服务器的描述、联系信息、规则及其他信息的页面。
+          local_feed_html: 展示此服务器用户最新嘟文的实时动态。
+          overview_html: 展示你的服务器描述及本站用户最新嘟文的页面。
+          trends_html: 展示此服务器当前热门内容的页面。
         values:
-          about: 关于
-          local_feed: 本站动态
-          trends: 热门
+          about: 关于本站
+          local_feed: 本站实时动态
+          overview: 概览
+          trends: 当前热门
       registrations:
         moderation_recommandation: 在向每个人开放注册之前，请确保你拥有一个人手足够且反应迅速的管理团队！
         preamble: 控制谁可以在你的服务器上创建账号。
@@ -963,6 +969,7 @@ zh-CN:
     site_uploads:
       delete: 删除已上传的文件
       destroyed_msg: 站点上传的文件已经成功删除！
+    skip_to_content: 跳转到内容
     software_updates:
       critical_update: 紧急 — 请尽快更新
       description: 建议你及时更新Mastodon实例，以便获得最新修复和功能。此外，为避免安全问题，有时及时更新Mastodon是至关重要的。出于这些原因，Mastodon每30分钟检查一次更新，并根据你的邮件通知偏好向你发送通知。
@@ -1100,7 +1107,7 @@ zh-CN:
       history: 历史记录
       live: 生效中
       no_history: 尚无服务条款变更记录。
-      no_terms_of_service_html: 你还没有设置任何服务条款。设置服务条款可以清晰地界定责任，并在与用户发生争议时有效保护您的权益。
+      no_terms_of_service_html: 你还没有设置任何服务条款。设置服务条款可以清晰地界定责任，并在与用户发生争议时有效保护你的权益。
       notified_on_html: 已于 %{date} 通知用户
       notify_users: 通知用户
       preview:
@@ -1321,7 +1328,7 @@ zh-CN:
     description:
       prefix_invited_by_user: "@%{name} 邀请你加入这个Mastodon服务器！"
       prefix_sign_up: 现在就注册 Mastodon 吧！
-      suffix: 注册一个账号，你就可以关注他人、发布嘟文、并和其它任何 Mastodon 服务器上的用户交流，而且还有其它更多功能！
+      suffix: 注册一个账号，你就可以关注他人、发布嘟文、并和其他任何 Mastodon 服务器上的用户交流，而且还有其他更多功能！
     didnt_get_confirmation: 没有收到确认链接？
     dont_have_your_security_key: 没有你的安全密钥？
     forgot_password: 忘记密码？
@@ -1540,7 +1547,9 @@ zh-CN:
     blocks: 屏蔽的用户
     bookmarks: 书签
     csv: CSV
+    custom_filters: 过滤器
     domain_blocks: 站点屏蔽列表
+    json: JSON
     lists: 列表
     mutes: 已被你隐藏的
     storage: 媒体文件存储
@@ -1584,7 +1593,7 @@ zh-CN:
       batch:
         remove: 从过滤规则中移除
       index:
-        hint: 此过滤规则适用于选中的个别嘟文，不受其它条件限制。你可以通过网页界面向此过滤规则添加更多嘟文。
+        hint: 此过滤规则适用于选中的个别嘟文，不受其他条件限制。你可以通过网页界面向此过滤规则添加更多嘟文。
         title: 过滤的嘟文
   generic:
     all: 全部
@@ -1737,7 +1746,7 @@ zh-CN:
       not_found: 找不到
       on_cooldown: 你正处于冷却状态
     followers_count: 迁移时的关注者
-    incoming_migrations: 从其它账号迁入
+    incoming_migrations: 从其他账号迁入
     incoming_migrations_html: 要把另一个账号移动到本账号，首先你需要<a href="%{path}">创建一个账号别名</a> 。
     moved_msg: 你的账号现在会跳转到 %{acct} ，同时关注者也会一并迁移 。
     not_redirecting: 你的账号当前未跳转到其它账号。
@@ -2245,7 +2254,7 @@ zh-CN:
       edit_profile_title: 个性化你的个人资料
       explanation: 下面是几个小贴士，希望它们能帮到你
       feature_action: 详细了解
-      feature_audience: Mastodon 为你提供了无需中间商即可管理受众的独特可能。Mastodon 可被部署在你自己的基础设施上，允许你关注其它任何 Mastodon 在线服务器的用户，或被任何其他在线 Mastodon 服务器的用户关注，并且不受你之外的任何人控制。
+      feature_audience: Mastodon 为你提供了无需中间商即可管理受众的独特可能。Mastodon 可被部署在你自己的基础设施上，允许你关注其他任何 Mastodon 在线服务器的用户，或被任何其他在线 Mastodon 服务器的用户关注，并且不受你之外的任何人控制。
       feature_audience_title: 自由吸引你的受众
       feature_control: 你最清楚你想在你自己的主页中看到什么动态。没有算法或广告浪费你的时间。你可以用一个账号关注任何 Mastodon 服务器上的任何人，并按时间顺序获得他们发布的嘟文，让你的互联网的角落更合自己的心意。
       feature_control_title: 掌控自己的时间线

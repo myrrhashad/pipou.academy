@@ -19,6 +19,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     strategy:
       fail-fast: true
@@ -75,6 +76,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     needs:
       - build
@@ -167,7 +169,7 @@ jobs:
 
       - name: Upload coverage reports to Codecov
         if: matrix.ruby-version == '.ruby-version'
-        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6
+        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6
         with:
           files: coverage/lcov/*.lcov
         env:
@@ -176,6 +178,7 @@ jobs:
   test-e2e:
     name: End to End testing
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     needs:
       - build
@@ -279,6 +282,7 @@ jobs:
   test-search:
     name: Elastic Search integration testing
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     needs:
       - build
